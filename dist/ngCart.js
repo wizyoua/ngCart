@@ -211,7 +211,15 @@ angular.module('ngCart', ['ngCart.directives'])
 
 
         item.prototype.setId = function(id){
-            if (id)  this._id = id;
+            // Create Unique ID for each item - Works if your Items contain unique options. Example: You can add item1 but
+            // what if somebody added item1 to cart but selected a different unique option that you applied in the 
+            // data="" attribute. 
+            
+            // Get Milliseconds
+            var timestamp = new Date().getUTCMilliseconds();
+            
+            //Append timestamp var with id var to create unique id everytime somebody clicks add to cart. 
+            if (id)  this._id = id + timestamp; // If you need to go back to original functionality, just delete timestamp from this line. Code takes care of the rest.
             else {
                 $log.error('An ID must be provided');
             }
